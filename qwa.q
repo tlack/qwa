@@ -1,5 +1,4 @@
-if[not `views in tables[]; pageviews:([] at:(); domain:(); ip:(); sess:(); loggedin:())];
-
+\l schema.q
 \l config.q
 \l cookie.q
 
