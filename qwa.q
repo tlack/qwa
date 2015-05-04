@@ -1,9 +1,10 @@
 if[not `views in tables[]; pageviews:([] at:(); domain:(); ip:(); sess:(); loggedin:())];
 
+\l config.q
 \l cookie.q
 
 lastreq:();
-mksessid:{.Q.s[first 1?0Ng]}
+mksessid:{.Q.s1[first 1?0Ng]}
 
 logreq:{[req]
 	lastreq::req;
