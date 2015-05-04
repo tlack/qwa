@@ -11,7 +11,7 @@ logreq:{
 	show hdrs;
 	cookies:.cookie.decode[hdrs[`Cookie]];
 	sess:mksessid[];
-	`pageviews insert (.z.P; ""; .z.a; ""; 0b);
+	`pageviews insert (.z.P; ""; x[0]; .z.a; ""; 0b);
 	resp:();
 	resp,:"HTTP/1.0 200 kk\r\n";
 	resp,:"Connection: close\r\n";
