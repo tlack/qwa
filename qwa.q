@@ -5,9 +5,9 @@
 lastreq:();
 mksessid:{.Q.s1[first 1?0Ng]}
 
-logreq:{[req]
-	lastreq::req;
-	hdrs:req[1];
+logreq:{
+	lastreq::x;
+	hdrs:x[1];
 	show hdrs;
 	cookies:.cookie.decode[hdrs[`Cookie]];
 	sess:mksessid[];
