@@ -19,7 +19,7 @@ logreq:{[req]
 	resp,:"Content-length: 7\r\n";
 	resp,:"Cache-Control: max-age=0, no-cache, no-store\r\n";
 	resp,:"Pragma: no-cache\r\n";
-	resp,:"Set-Cookie: qwas=",sess,"; expires=Wednesday, 01-Jan-2020 00:00:00 GMT; path=/; domain=pop.co\r\n";
+	resp,:"Set-Cookie: qwas=",sess,"; expires=Wednesday, 01-Jan-2020 00:00:00 GMT; path=/; domain=",.config.domain,"\r\n";
 	resp,"\r\n//qwa\r\n"}
 
 boot:{
