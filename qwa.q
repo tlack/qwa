@@ -1,3 +1,5 @@
+lastreq:();
+
 \l schema.q
 \l config.q
 \l cookie.q
