@@ -7,22 +7,17 @@ lastreq:();
 lastreq:();
 mksessid:{.Q.s1[first 1?0Ng]}
 
+stats:{show `stats;count pageviews}
+
 logreq:{
 	lastreq::x;
 	hdrs:x[1];
-	show hdrs;
-	cookies:.cookie.decode[hdrs[`Cookie]];
+	p:.web.url[x[0]];
+	if[p[0]~.config.url.stats;:stats[]];
+	cookies:.web.ck.decode[hdrs[`Cookie]];
 	sess:mksessid[];
-	`pageviews insert (.z.P; ""; `$x[0]; .z.a; ""; 0b);
-	resp:();
-	resp,:"HTTP/1.0 200 kk\r\n";
-	resp,:"Connection: close\r\n";
-	resp,:"Content-Type:text/html; charset=iso-8859-1\r\n";
-	resp,:"Content-length: 7\r\n";
-	resp,:"Cache-Control: max-age=0, no-cache, no-store\r\n";
-	resp,:"Pragma: no-cache\r\n";
-	resp,:"Set-Cookie: qwas=",sess,"; expires=Wednesday, 01-Jan-2020 00:00:00 GMT; path=/; domain=",.config.domain,"\r\n";
-	resp,"\r\n//qwa\r\n"}
+	`pageviews insert (.z.P; ""; `$x[0]; .z.a; sess; 0b);
+	.web.resp[enlist .web.ck.set["qwas";sess];"//qwa"]}
 
 boot:{
 	oldzph::.z.ph;
@@ -31,4 +26,3 @@ boot:{
 
 boot[]
 
-	p:.web.url[x[0]];
