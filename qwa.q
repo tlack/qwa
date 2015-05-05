@@ -2,7 +2,7 @@ lastreq:();
 
 \l schema.q
 \l config.q
-\l cookie.q
+\l web.q
 
 lastreq:();
 mksessid:{.Q.s1[first 1?0Ng]}
@@ -13,7 +13,7 @@ logreq:{
 	show hdrs;
 	cookies:.cookie.decode[hdrs[`Cookie]];
 	sess:mksessid[];
-	`pageviews insert (.z.P; ""; x[0]; .z.a; ""; 0b);
+	`pageviews insert (.z.P; ""; `$x[0]; .z.a; ""; 0b);
 	resp:();
 	resp,:"HTTP/1.0 200 kk\r\n";
 	resp,:"Connection: close\r\n";
@@ -31,3 +31,4 @@ boot:{
 
 boot[]
 
+	p:.web.url[x[0]];
