@@ -8,8 +8,9 @@ ck.set:{[nam;val]"Set-Cookie: ",nam,"=",val,"; expires=Wednesday, 01-Jan-2020 00
 ck.decode:{("=" vs) each "; " vs x}
 
 / i could have sworn i saw this in the q source somewhere
-repr:{x};
+repr:{str[x]}
 
+/ wrap a response
 resp:{[hdrs;body]
 	b:repr[body];
 	r:();
@@ -21,6 +22,18 @@ resp:{[hdrs;body]
 	r,:"Pragma: no-cache\r\n";
 	r,:nl raze hdrs;
 	r,"\r\n",b,"\r\n"}
+
+/ routes called with: f[req;headers]
+/ req is (`page;(`qs1;`qs2)!("val1";"val2"))
+/ headers is table as per .z.ph x[1]
+serve:{[routes;dfl;x]
+	lastreq::x;
+	hdrs:x[1];
+	p:.web.url[x[0]];
+	/ f:dfl^routes[p[0]]; /'type. why?
+	f:$[not null rm:routes p[0];rm;dfl];
+	v: f[p;x[1]];
+	$[`web~first v;resp[v[1];v[2]];resp[();v]]}
 
 // URLs and Parsing:
 
@@ -46,5 +59,6 @@ qs:{if[0~type v:"=" vs x;v;()]}
 
 nl:{x,"\r\n"}
 ml:{r:x;if[not (type x)=10h;r:enlist x]r}
-str:{if[type x=10h;enlist x;if[-11h=type x;string x;x]]}
+str:{$[10h=(type x);x;.Q.s1[x]]}
+
 
