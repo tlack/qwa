@@ -1,7 +1,17 @@
-/ if[not `views in tables[]; pageviews:([] at:(); domain:(); ip:(); sess:(); loggedin:())];
-tbls:()!()
-tbls[`pageviews]:([] at:(); domain:(); url:(); ip:(); sess:(); loggedin:());
+/ instead of regular insert we send a message to 0 to be sure it's logged
+upd:{0 ("insert";x;y)}
 
-/ build tables in . if they dont exist
-{n:tbls?x;if[not n in tables[];n set 0#x]} each tbls;
+/ create tables and insert b.s. first value so q knows the types
+dfnsess:{
+	sessions::([id:enlist first 1?0Ng] at:enlist .z.P);
+	`sessions insert (first 1?0Ng;.z.P)}
+dfnpvs:{
+	pageviews::([] at:(); domain:(); url:(); ip:(); sess:`sessions$(); loggedin:());
+	`pageviews insert (enlist .z.P; `; `; .z.a; 0Ng; 0b)}
+
+if[not `sessions in tables[]; dfnsess[]];
+if[not `pageviews in tables[]; dfnpvs[]];
+
+
+
 

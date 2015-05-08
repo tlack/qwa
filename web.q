@@ -7,7 +7,6 @@ ck.set:{[nam;val]"Set-Cookie: ",nam,"=",val,"; expires=Wednesday, 01-Jan-2020 00
 // decode Cookie: headers into ((c1;v1);(c2;v2)...)
 ck.decode:{("=" vs) each "; " vs x}
 
-/ i could have sworn i saw this in the q source somewhere
 repr:{str[x]}
 
 / wrap a response
