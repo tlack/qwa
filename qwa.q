@@ -9,10 +9,13 @@ noop:{[r;h]""} /no-logging handler for URLs we dont want to track
 stats:{[r;h]count pageviews}
 
 logreq:{[req;hdrs]
-	cookies:.web.ck.decode[hdrs[`Cookie]];
-	sess:mksessid[];
+	cookies:.web.ck.get[hdrs[`Cookie]];
+	/ show (`cookies;cookies);
+	sess:$[not (sess in (key sessions)`id) or null~sess:"G"$cookies `qwas;mksessid[];sess];
+	/ show (`sess;sess);
 	upd[`pageviews;(.z.P; `$hdrs[`Host]; req[0]; .z.a; `sessions$sess; 0b)];
-	(`web;enlist .web.ck.set["qwas";string sess];"//qwa")}
+	/ show (`pageviews;pageviews);
+	(`web;enlist .web.ck.set[`qwas;string sess];"//qwa")}
 
 boot:{
 	oldzph::.z.ph;
