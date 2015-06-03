@@ -7,7 +7,14 @@ ck.set:{[nam;val]"Set-Cookie: ",str[nam],"=",val,"; expires=Wednesday, 01-Jan-20
 // transform Cookie: headers into ((c1;v1);(c2;v2)...)
 ck.get:{pairs:("=" vs) each "; " vs x; (`$pairs[;0])!(pairs[;1])}
 
+/ convert arbitrary q term into html
 repr:{str[x]}
+
+/ return users IP, checking x-forwarded-for first
+ip:{[hdrs]show hdrs;
+	show (`fwd;hdrs[`$"X-Forwarded-For"]);
+	th:`$"X-Forwarded-For";
+	$[th in key hdrs;"I"$hdrs[th];.z.a]}
 
 / wrap a response in full http regalia
 resp:{[hdrs;body]
@@ -26,9 +33,11 @@ resp:{[hdrs;body]
 / req is (`page;(`qs1;`qs2)!("val1";"val2"))
 / headers is table as per .z.ph x[1]
 serve:{[routes;dfl;x]
+	show(`servex;x);
 	lastreq::x;
 	hdrs:x[1];
 	p:.web.url[x[0]];
+	show(`servep;p);
 	/ f:dfl^routes[p[0]]; /'type. why?
 	f:$[not null rm:routes p[0];rm;dfl];
 	v: f[p;x[1]];
@@ -36,28 +45,20 @@ serve:{[routes;dfl;x]
 
 // URLs and Parsing:
 
-// parse /page?name=tom&age=36 into (`page;(`name`age)!("tom";36))
-/ read like so: 
-/ "?" vs x - split("?", x)
-/ x is actually implied - cool feature
-/ 2# pads this out to two characters - by repeating, unfortunately
-/ TODO fix this; it should pad out with null
-/ next, we use ' to turn @' into a function that is applied to 
-/ each element of the arugment list (i.e., the right), rather than
-/ with one argument (the entire list).
-/ @ looks up and applies each element of the function list in turn
-url:{(path;qs) @' 2# "?" vs x}
+/ parse /page?name=tom&age=36 into (`page;(`name`age)!("tom";36))
+url:{p:"?" vs x;
+	show(`urlp;p);
+	(path p[0]; $[(count p)>1;qs p[1];()!()])}
 
 / massage a path to symbol - normalize path here if needed
 path:`$;
 
 / parse query string into component parts
-qs:{if[0~type v:"=" vs x;v;()]}
+qs:{p:({"="vs x}each "&" vs x);(`$p[;0])!p[;1]}
 
 // private/boring/low level - not interesting to you
 
 nl:{x,"\r\n"}
-ml:{r:x;if[not (type x)=10h;r:enlist x]r}
 str:{$[10h=(type x);x;.Q.s1[x]]}
 
 
