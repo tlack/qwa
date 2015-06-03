@@ -5,7 +5,7 @@
 \c 9999 9999
 
 lastreq:();
-mksessid:{s:first 1?0Ng;upd[`sessions;(s;.z.P)];s}
+mksessid:{s:first -1?0Ng;show(`newsess;s);upd[`sessions;(s;.z.P)];s}
 
 noop:{[r;h]""} /no-logging handler for URLs we dont want to track
 stats:{[r;h]count pageviews}
