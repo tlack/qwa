@@ -2,6 +2,8 @@
 \l schema.q /table dfns and upd[]
 \l web.q
 
+\c 9999 9999
+
 lastreq:();
 mksessid:{s:first 1?0Ng;upd[`sessions;(s;.z.P)];s}
 
