@@ -1,6 +1,7 @@
 \d .config
 
 domain:"pop.co";
+loggedincookie:"pop_weasel";
 
 / visiting this url generates a stats report
 / defaults to "stats-{hostname}"
