@@ -1,9 +1,9 @@
 / instead of regular insert we send a message to 0 to be sure it's logged
-upd:{0 ("insert";x;y)}
+upd:{show(`upd;x;y;type each y);0 ("insert";x;y)}
 
 / create tables and insert b.s. first value so q knows the types
 dfnsess:{
-	sessions::([id:enlist first 1?0Ng] at:enlist .z.P);
+	sessions::([id:()] at:());
 	`sessions insert (first 1?0Ng;.z.P)}
 dfnpvs:{
 	pageviews::([] at:(); domain:(); url:(); ip:(); sess:`sessions$(); loggedin:());
