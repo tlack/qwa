@@ -40,8 +40,9 @@ serve:{[routes;dfl;x]
 	show(`servep;p);
 	/ f:dfl^routes[p[0]]; /'type. why?
 	f:$[not null rm:routes p[0];rm;dfl];
-	v: f[p;x[1]];
-	$[`web~first v;resp[v[1];v[2]];resp[();v]]}
+	v:f[p;x[1]];
+	show(`servev;f;v);
+	$[`web~first v;resp[v[1];raze v[2]];resp[();raze v]]}
 
 // URLs and Parsing:
 

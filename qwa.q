@@ -1,5 +1,6 @@
 \l config.q
 \l schema.q /table dfns and upd[]
+\l statsui.q
 \l web.q
 
 \c 9999 9999
@@ -34,7 +35,7 @@ logreq:{[req;hdrs]
 boot:{
 	oldzph::.z.ph;
 	routes:()!();
-	routes[.config.url.stats]:stats;
+	routes[.config.url.stats]:.statsui.handler[pageviews];
 	routes[`favicon.ico]:noop; / >:o cant believe this is a thing
 	.z.ph:.web.serve[routes;logreq];
 	show "booted";}
