@@ -2,7 +2,7 @@
 
 decode:{[k;v]
 	/show(`decode;k;v);
-	$[`ip~k;.Q.host[v];v]}
+	$[`ip~k;"." sv string "i"$0x0 vs v;v]}
 
 header:{[row]
 	/show(`header;row);
