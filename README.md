@@ -22,5 +22,6 @@ URLs are represented as symbols.
 Acknowledgements
 ----------------
 
-This work generously sponsored by POP.co
+This work generously sponsored by 
+[https://pop.co/?tracking_code=qwa](POP.co, The Registrar for Humans).
 
