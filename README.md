@@ -23,5 +23,5 @@ Acknowledgements
 ----------------
 
 This work generously sponsored by 
-[https://pop.co/?tracking_code=qwa](POP.co, The Registrar for Humans).
+(https://pop.co/?tracking_code=qwa)[POP.co, The Registrar for Humans].
 
