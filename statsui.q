@@ -31,12 +31,20 @@ V:()
 V,:enlist ("Top domains (last 24hr)";{[pageviews;req;hdrs]
 	pageviews:`.[`pageviews];
 	result: select[100;>nview] first domain,nview:count domain,nuniq:count distinct ip by domain from pageviews where (.z.P-at)<1D;
-	show (`topdomains;result);
+	result});
+
+V,:enlist ("Top domains (last 5 days)";{[pageviews;req;hdrs]
+	pageviews:`.[`pageviews];
+	result: select[100;>nview] first domain,nview:count domain,nuniq:count distinct ip by domain from pageviews where (.z.P-at)<5D;
+	result});
+
+V,:enlist ("Top domains (all time)";{[pageviews;req;hdrs]
+	pageviews:`.[`pageviews];
+	result: select[100;>nview] first domain,nview:count domain,nuniq:count distinct ip by domain from pageviews;
 	result});
 
 V,:enlist ("Most recent page views";{[pageviews;req;hdrs]
 	pageviews:`.[`pageviews];
 	result: select[100;>at] at,domain,ip from pageviews;
-	show (`lastpageviews;result);
 	result});
 
